@@ -45,7 +45,8 @@ blocks:
               value: 'ecto://postgres:@0.0.0.0:5432/sema_test'
           commands:
             - sem-service start postgres
-            - mix test
+            - MIX_TEST_PARTITION=$SEMAPHORE_JOB_INDEX  mix test --partitions 4
+          parallelism: 4
       epilogue:
         always:
           commands:
